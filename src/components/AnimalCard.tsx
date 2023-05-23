@@ -5,16 +5,9 @@ import Tag from "./Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
-import { getThumbnailImageURLFromFileName } from "../api/Images";
-import { useEffect, useState } from "react";
 
 function AnimalCard(props: animalProps) {
   const navigation = useNavigation();
-  const [imageURL, setImageURL] = useState<string | undefined>(undefined);
-
-  useEffect(() => {
-    getThumbnailImageURLFromFileName(props.thumbnail_name, setImageURL);
-  }, []);
 
   return (
     <TouchableOpacity
@@ -33,7 +26,7 @@ function AnimalCard(props: animalProps) {
       }}
     >
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: imageURL }} />
+        <Image style={styles.image} source={require(`./assets/thumbnails/${props.thumbnail_name}.jpg`)} />
       </View>
       <View style={styles.textContainer}>
         <Text style={textStyles.basicBold} numberOfLines={1}>
