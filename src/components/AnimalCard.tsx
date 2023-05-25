@@ -26,7 +26,11 @@ function AnimalCard(props: animalProps) {
       }}
     >
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={require(`./assets/thumbnails/${props.thumbnail_name}.jpg`)} />
+        <Image
+          style={styles.image}
+          source={{ uri: `./assets/thumbnails/${props.thumbnail_name}.jpg` }}
+        />
+        ;
       </View>
       <View style={styles.textContainer}>
         <Text style={textStyles.basicBold} numberOfLines={1}>
