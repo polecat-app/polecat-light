@@ -9,9 +9,11 @@ async function openDatabase(): Promise<SQLite.WebSQLDatabase> {
   }
   await FileSystem.downloadAsync(
     Asset.fromModule(require('../database/polecat.db')).uri,
-    FileSystem.documentDirectory + 'SQLite/myDatabaseName.db'
+    FileSystem.documentDirectory + 'SQLite/polecat.db'
   );
-  return SQLite.openDatabase('myDatabaseName.db');
+  return SQLite.openDatabase('polecat.db');
 }
 
-export default openDatabase;
+const db = openDatabase();
+
+export default db;
