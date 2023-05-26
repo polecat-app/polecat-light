@@ -17,5 +17,14 @@ LEFT JOIN tags t ON st.tag_id = t.tag_id
 LEFT JOIN ecoregion_species es ON s.species_id = es.species_id AND :eco_code IS NOT NULL 
 WHERE (:eco_code IS NULL OR es.eco_code = :eco_code) 
 GROUP BY s.species_id
-HAVING COUNT(DISTINCT CASE WHEN t.tag IN (:filter_tags) THEN t.tag END) = :filter_tags_count
-LIMIT 10;
+HAVING COUNT(DISTINCT CASE WHEN t.tag IN (:filter_tags) THEN t.tag END) = 
+    CASE 
+        WHEN 'endemic' in (:filter_tags) THEN :filter_tags_count - 1
+        ELSE :filter_tags_count 
+    END
+AND ('endemic' not in (:filter_tags) OR es.endemic = 1)
+ORDER BY (s.thumbnail_name IS NULL),
+        s.ranking DESC,
+        s.species_id
+LIMIT (:range_to - :range_from) 
+OFFSET (:range_from);
