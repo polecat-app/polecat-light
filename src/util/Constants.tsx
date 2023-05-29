@@ -1,3 +1,16 @@
+const tagNames: StaticTags[] = [
+  "amphibian",
+  "bird",
+  "mammal",
+  "reptile",
+  "vulnerable",
+  "endangered",
+  "migratory",
+  "nocturnal",
+  "poisonous",
+  "endemic",
+];
+
 const Bars = {
   FilterBar: "FilterBar",
   SearchBar: "SearchBar",
@@ -39,10 +52,10 @@ const Tags: TagsType = {
     icon: "exclamation-thick",
     category: "commonness",
   },
-  endemic: { color: "gold", icon: "map-marker-star-outline" },
   migratory: { color: "skyblue", icon: "earth" },
   nocturnal: { color: "slategray", icon: "moon-waning-crescent" },
   poisonous: { color: "plum", icon: "skull-outline" },
+  endemic: { color: "gold", icon: "map-marker-star-outline" },
 };
 
-export { Bars, IconTypes, alerts, Tags, SaveTypes };
+export { Bars, IconTypes, alerts, Tags, SaveTypes, tagNames };

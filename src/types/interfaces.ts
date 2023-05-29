@@ -16,10 +16,11 @@ type StaticTags =
   | "reptile"
   | "vulnerable"
   | "endangered"
-  | "endemic"
   | "migratory"
   | "nocturnal"
-  | "poisonous";
+  | "poisonous"
+  | "endemic"
+  ;
 
 interface animalProps {
   species_id: number;

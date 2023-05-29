@@ -30,7 +30,6 @@ function AnimalCard(props: animalProps) {
           style={styles.image}
           source={{ uri: `./assets/thumbnails/${props.thumbnail_name}.jpg` }}
         />
-        ;
       </View>
       <View style={styles.textContainer}>
         <Text style={textStyles.basicBold} numberOfLines={1}>
