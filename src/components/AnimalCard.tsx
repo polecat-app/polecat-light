@@ -28,7 +28,7 @@ function AnimalCard(props: animalProps) {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: `./assets/thumbnails/${props.thumbnail_name}.jpg` }}
+          source={{ uri: `./assets/thumbnails/${props.species_id}.jpg` }}
         />
       </View>
       <View style={styles.textContainer}>

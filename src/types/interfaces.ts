@@ -27,7 +27,7 @@ interface animalProps {
   common_name: string;
   genus: string;
   species: string;
-  thumbnail_name: string;
+  thumbnail: boolean;
   liked: boolean;
   seen: boolean;
   tags: StaticTags[];

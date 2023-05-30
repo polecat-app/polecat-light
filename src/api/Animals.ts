@@ -56,7 +56,7 @@ s.species_id AS species_id,
 sn.english AS common_name,
 g.genus AS genus,
 s.species AS species,
-s.thumbnail_name AS thumbnail_name,
+s.thumbnail AS thumbnail,
 SUM(CASE WHEN sv.save_type = 'liked' THEN 1 ELSE 0 END) > 0 AS liked,
 SUM(CASE WHEN sv.save_type = 'seen' THEN 1 ELSE 0 END) > 0 AS seen,
 st.amphibian AS amphibian,
@@ -91,7 +91,8 @@ WHERE
   (p.poisonous IS NULL OR st.poisonous = p.poisonous)
 )
 GROUP BY s.species_id
-ORDER BY (s.thumbnail_name IS NULL),
+ORDER BY 
+      s.thumbnail DESC,
       s.ranking DESC,
       s.species_id
 LIMIT (SELECT range_to - range_from FROM params_cte)
@@ -115,7 +116,7 @@ OFFSET (SELECT range_from FROM params_cte);
               common_name: responseObject.common_name,
               genus: responseObject.genus,
               species: responseObject.species,
-              thumbnail_name: responseObject.thumbnail_name,
+              thumbnail: responseObject.thumbnail,
               liked: responseObject.liked,
               seen: responseObject.seen,
               tags: responseTags
