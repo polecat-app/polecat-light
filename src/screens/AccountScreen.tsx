@@ -5,6 +5,7 @@ import React from "react";
 import { View } from "react-native";
 import TopBarContainer from "../components/TopBarContainer";
 import { Section, SectionButton, SectionRow } from "../components/ui/Section";
+import LanguageSelector from "../components/LanguageSelector";
 
 function AccountScreen() {
   return (
@@ -37,6 +38,9 @@ function AccountScreen() {
           >
             Delete account
           </SectionButton>
+        </Section>
+        <Section title="Language">
+          <LanguageSelector></LanguageSelector>
         </Section>
       </ScrollView>
     </View>

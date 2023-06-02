@@ -29,6 +29,11 @@ type StaticTags =
   | "poisonous"
   | "endemic";
 
+interface languageDropdownItem {
+  value: Language;
+  flag: string;
+}
+
 interface animalProps {
   species_id: number;
   common_name: string;

@@ -58,4 +58,13 @@ const Tags: TagsType = {
   endemic: { color: "gold", icon: "map-marker-star-outline" },
 };
 
-export { Bars, IconTypes, alerts, Tags, SaveTypes, tagNames };
+const LANGUAGES: languageDropdownItem[] = [
+  { value: "english", flag: "🇬🇧" },
+  { value: "dutch", flag: "🇳🇱" },
+  { value: "spanish", flag: "🇪🇸" },
+  { value: "german", flag: "🇩🇪" },
+  { value: "french", flag: "🇫🇷" },
+  { value: "italian", flag: "🇮🇹" },
+];
+
+export { Bars, IconTypes, alerts, Tags, SaveTypes, tagNames, LANGUAGES };
