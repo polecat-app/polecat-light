@@ -9,6 +9,14 @@ interface filterProps {
   } | null;
 }
 
+type Language =
+  | "english"
+  | "dutch"
+  | "spanish"
+  | "german"
+  | "french"
+  | "italian";
+
 type StaticTags =
   | "amphibian"
   | "bird"
@@ -19,8 +27,7 @@ type StaticTags =
   | "migratory"
   | "nocturnal"
   | "poisonous"
-  | "endemic"
-  ;
+  | "endemic";
 
 interface animalProps {
   species_id: number;

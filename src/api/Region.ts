@@ -1,40 +1,10 @@
-import { SQLTransaction } from "expo-sqlite";
-import db from "../InitSqlite";
+import { supabase } from "../InitSupabase";
 
-async function getRegionFromLocation(locaction: location, setRegion: Function) {
-  // const response = await supabase.rpc("__get_ecoregion_from_location", {
-  //   ...locaction,
-  // });
-  console.log(db);
-  db.transaction((tx: SQLTransaction) => {
-    tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS MyTable (id INTEGER PRIMARY KEY AUTOINCREMENT, data TEXT);",
-      [],
-      (tx, results) => {
-        console.log("Table created successfully");
-      },
-      (tx, error) => {
-        console.error("Error: ", error);
-        return true; // Stop the transaction if there was an error
-      }
-    );
+async function getRegionFromLocation(locaction: location, language: Language, setRegion: Function) {
+  const response = await supabase.rpc("__get_ecoregion_from_location", {
+    ...locaction,
+    language: language,
   });
-
-  db.readTransaction((tx: SQLTransaction) => {
-    tx.executeSql(
-      "SELECT * FROM MyTable",
-      [],
-      (tx, results) => {
-        console.log("Query completed");
-      },
-      (tx, error) => {
-        console.error("Error: ", error);
-        return true; // Stop the transaction if there was an error
-      }
-    );
-  });
-
-  const response = {};
   if (
     response &&
     response.data &&

@@ -1,8 +1,9 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import useLocation from "../hooks/useLocation";
 import getAddressFromCoordinates from "../api/Location";
 import { combineNames } from "../util/Helpers";
 import { getRegionFromLocation } from "../api/Region";
+import { useTranslation } from "react-i18next";
 
 type ContextProps = {
   location: location | null;
@@ -40,10 +41,14 @@ const LocationProvider = (props: Props) => {
     }
   }, [currentLocation]);
 
+  const { i18n } = useTranslation();
+  // @ts-ignore
+  const language: Language = i18n.language;
+
   // Get location name by reverse geocoding, get region by location
   useEffect(() => {
     if (location) {
-      getRegionFromLocation(location, setRegion);
+      getRegionFromLocation(location, language, setRegion);
       getAddressFromCoordinates(
         location.latitude,
         location.longitude,
