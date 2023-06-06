@@ -1,8 +1,10 @@
 import { supabase } from "../InitSupabase";
+import { convertBooleansToTags, convertTagsToBooleans } from "../util/Helpers";
 
 // Get species by ecoregion and filter tags
 
 interface getSpeciesProps {
+  language: Language;
   eco_code: string;
   range_from: number;
   range_to: number;
@@ -13,9 +15,16 @@ async function getSpecies(
   args: getSpeciesProps,
   setData: Function
 ) {
+  const booleanTags = convertTagsToBooleans(args.filter_tags)
   const response = await supabase.rpc(
     "__get_species",
-    args
+    {
+      language: args.language,
+      eco_code: args.eco_code,
+      range_from: args.range_from,
+      range_to: args.range_to,
+      ...booleanTags
+    }
   );
   if (response && response.data) {
     setData((data: animalProps[]) => [...data, ...response.data]);

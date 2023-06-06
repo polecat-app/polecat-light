@@ -40,8 +40,6 @@ interface animalProps {
   genus: string;
   species: string;
   thumbnail: boolean;
-  liked: boolean;
-  seen: boolean;
   tags: StaticTags[];
 }
 

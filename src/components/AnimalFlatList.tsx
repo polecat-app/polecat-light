@@ -16,6 +16,7 @@ import {
 import { LocationContext } from "../provider/LocationProvider";
 import { getSavedAnimals } from "../api/Saving";
 import { SaveTypes } from "../util/Constants";
+import { useTranslation } from "react-i18next";
 
 interface AnimalFlatListProps {
   timeOutValue: number;
@@ -38,6 +39,10 @@ function AnimalFlatList({
   const [filtersUpdating, setFiltersUpdating] = useState<boolean>(true);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const locationContext = useContext(LocationContext);
+
+  const { i18n } = useTranslation();
+  // @ts-ignore
+  const language: Language = i18n.language;
 
   // Update results on change in filters, after timeout
   useEffect(() => {
@@ -76,6 +81,7 @@ function AnimalFlatList({
     else if (filterTags && locationContext.region) {
       getSpecies(
         {
+          language: language,
           eco_code: locationContext.region.eco_code,
           range_from: page * pageSize,
           range_to: page * pageSize + pageSize,

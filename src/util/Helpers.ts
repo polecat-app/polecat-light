@@ -15,14 +15,19 @@ function combineNames(
   return aggregateLocationName;
 }
 
-function convertTagsToBooleans(tags: StaticTags[]): (number | null)[] {
+function convertTagsToBooleans(tags: StaticTags[]): (boolean | null)[] {
   const allTags: StaticTags[] = tagNames;
-  return allTags.map(tag => tags.includes(tag)? 1 : null);
+  const boolTups = allTags.map(tag => tags.includes(tag)? [tag, true] : [tag, null]);
+  const obj = {};
+  // add all tuples to object, using tag as key and boolean as value
+  boolTups.forEach(tup => obj[tup[0]] = tup[1]);
+  console.log(obj)
+  return obj;
 }
 
-function convertBooleansToTags(booleans: (number | null)[]): StaticTags[] {
+function convertBooleansToTags(booleans: (boolean | null)[]): StaticTags[] {
   const allTags: StaticTags[] = tagNames;
-  return allTags.filter((tag, index) => booleans[index] === 1);
+  return allTags.filter((tag, index) => booleans[index] === true);
 }
 
 export { combineNames, convertTagsToBooleans, convertBooleansToTags };
