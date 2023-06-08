@@ -19,9 +19,6 @@ import { DiscoverStackParamList } from "../types/navigation";
 import Tag from "../components/Tag";
 import AnimalList from "../components/AnimalList";
 import { getSpeciesDetails } from "../api/Animals";
-import {
-  getThumbnailImageURLFromFileName,
-} from "../api/Images";
 import { SaveTypes } from "../util/Constants";
 import { saveAnimal, unSaveAnimal } from "../api/Saving";
 import { useTranslation } from "react-i18next";
@@ -141,12 +138,6 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
           <ImageBackground
             style={styles.image}
             source={{ uri: speciesDetails.cover_url }}
-            onError={() => {
-              getThumbnailImageURLFromFileName(
-                props.thumbnail_name,
-                setImageURL
-              );
-            }}
           />
           <View style={styles.onImage}>
             <Text style={textStyles.overlayBold} numberOfLines={3}>

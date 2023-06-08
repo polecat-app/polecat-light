@@ -48,7 +48,6 @@ async function getSpeciesBySearch(
     "__search_animals",
     args
   );
-  console.log('response search', response)
   if (response && response.data) {
     setData((data: animalProps[]) => [...data, ...response.data]);
   }
@@ -78,7 +77,6 @@ async function getRelatedSpecies(
       eco_code: args.eco_code
     }
   );
-  console.log('response related', response)
   if (response && response.data) {
     setData(response.data);
   }
@@ -94,7 +92,6 @@ async function getSpeciesDetails(
       "__get_species_details",
       { species_id_input: species_id, language: language }
     )
-  console.log('response details', response)
     if (response && response.data) {
       setData(response.data);
     }

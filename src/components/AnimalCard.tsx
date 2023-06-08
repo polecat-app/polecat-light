@@ -5,9 +5,16 @@ import Tag from "./Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import { getThumbnailSignedURL } from "../api/Images";
+import { useEffect, useState } from "react";
 
 function AnimalCard(props: animalProps) {
   const navigation = useNavigation();
+  const [thumbnailURL, setThumbnailURL] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    getThumbnailSignedURL(props.species_id, setThumbnailURL);
+  }, []);
 
   return (
     <TouchableOpacity
@@ -28,7 +35,7 @@ function AnimalCard(props: animalProps) {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: `./assets/thumbnails/${props.species_id}.jpg` }}
+          source={{ uri: thumbnailURL }}
         />
       </View>
       <View style={styles.textContainer}>

@@ -21,7 +21,6 @@ function convertTagsToBooleans(tags: StaticTags[]): (boolean | null)[] {
   const obj = {};
   // add all tuples to object, using tag as key and boolean as value
   boolTups.forEach(tup => obj[tup[0]] = tup[1]);
-  console.log(obj)
   return obj;
 }
 
