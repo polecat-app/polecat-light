@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { AnimalCard, AnimalCardSkeleton } from "./AnimalCard";
 import { Offsets } from "../styles/Offsets";
 import { getRelatedSpecies } from "../api/Animals";
+import { useTranslation } from "react-i18next";
 import { LocationContext } from "../provider/LocationProvider";
 
 interface AnimalListProps {
@@ -10,21 +11,23 @@ interface AnimalListProps {
   listLength: number;
 }
 
-function AnimalList({
-  speciesId,
-  listLength,
-}: AnimalListProps) {
+function AnimalList({ speciesId, listLength }: AnimalListProps) {
   const [data, setData] = useState<animalProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const locationContext = useContext(LocationContext);
+
+  const { i18n } = useTranslation();
+  // @ts-ignore
+  const language: Language = i18n.language;
 
   async function fetchData() {
     setIsLoading(true);
     if (locationContext.region) {
       getRelatedSpecies({
         eco_code: locationContext.region?.eco_code, 
-        range_from: 0, 
-        range_to: 5, 
+        language: language,
+        range_from: 0,
+        range_to: 5,
         species_id: speciesId
       }, setData)
     }

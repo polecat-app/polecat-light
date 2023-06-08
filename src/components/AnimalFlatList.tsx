@@ -69,6 +69,7 @@ function AnimalFlatList({
     if (searchPhrase) {
       getSpeciesBySearch(
         {
+          language: language,
           search_term: searchPhrase,
           range_from: page * pageSize,
           range_to: page * pageSize + pageSize,

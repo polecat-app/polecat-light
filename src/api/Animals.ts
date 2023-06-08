@@ -1,5 +1,5 @@
 import { supabase } from "../InitSupabase";
-import { convertBooleansToTags, convertTagsToBooleans } from "../util/Helpers";
+import { convertTagsToBooleans } from "../util/Helpers";
 
 // Get species by ecoregion and filter tags
 
@@ -34,6 +34,7 @@ async function getSpecies(
 // Get species by search term
 
 interface searchProps {
+  language: Language;
   search_term: string;
   range_from: number;
   range_to: number;
@@ -47,6 +48,7 @@ async function getSpeciesBySearch(
     "__search_animals",
     args
   );
+  console.log('response search', response)
   if (response && response.data) {
     setData((data: animalProps[]) => [...data, ...response.data]);
   }
@@ -55,10 +57,11 @@ async function getSpeciesBySearch(
 // Get related species
 
 interface getRelatedSpeciesProps {
-  eco_code: string;
+  language: Language;
   range_from: number;
   range_to: number;
   species_id: number;
+  eco_code: string;
 }
 
 async function getRelatedSpecies(
@@ -67,8 +70,15 @@ async function getRelatedSpecies(
 ) {
   const response = await supabase.rpc(
     "__get_related_species",
-    args
+    {
+      language: args.language,
+      range_from: args.range_from,
+      range_to: args.range_to,
+      species_id_input: args.species_id,
+      eco_code: args.eco_code
+    }
   );
+  console.log('response related', response)
   if (response && response.data) {
     setData(response.data);
   }
@@ -78,11 +88,13 @@ async function getRelatedSpecies(
 
 async function getSpeciesDetails(
   species_id: number, 
+  language: Language,
   setData: Function) {
     const response = await supabase.rpc(
       "__get_species_details",
-      { search_id: species_id }
+      { species_id_input: species_id, language: language }
     )
+  console.log('response details', response)
     if (response && response.data) {
       setData(response.data);
     }

@@ -20,11 +20,11 @@ import Tag from "../components/Tag";
 import AnimalList from "../components/AnimalList";
 import { getSpeciesDetails } from "../api/Animals";
 import {
-  getCoverImageURL,
   getThumbnailImageURLFromFileName,
 } from "../api/Images";
 import { SaveTypes } from "../util/Constants";
 import { saveAnimal, unSaveAnimal } from "../api/Saving";
+import { useTranslation } from "react-i18next";
 
 type AnimalScreenProps = NativeStackScreenProps<
   DiscoverStackParamList,
@@ -39,21 +39,18 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
   const [liked, setLiked] = useState(props.liked);
   const [seen, setSeen] = useState(props.seen);
 
-  const [imageURL, setImageURL] = useState<string | undefined>(undefined);
-
   const [speciesDetails, setSpeciesDetails] = useState<animalDetails>({
     species_id: null,
     description: null,
-    cover_url: null,
-    range_image_url: null,
+    cover_url: undefined,
   });
 
-  useEffect(() => {
-    getCoverImageURL(props.species_id, setImageURL);
-  }, []);
+  const { i18n } = useTranslation();
+  // @ts-ignore
+  const language: Language = i18n.language;
 
   useEffect(() => {
-    getSpeciesDetails(props.species_id, setSpeciesDetails);
+    getSpeciesDetails(props.species_id, language, setSpeciesDetails);
   }, []);
 
   function onPressLike() {
@@ -143,7 +140,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
         <View style={styles.top}>
           <ImageBackground
             style={styles.image}
-            source={{ uri: imageURL }}
+            source={{ uri: speciesDetails.cover_url }}
             onError={() => {
               getThumbnailImageURLFromFileName(
                 props.thumbnail_name,

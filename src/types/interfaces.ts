@@ -46,8 +46,7 @@ interface animalProps {
 interface animalDetails {
   species_id: number | null;
   description: string | null;
-  cover_url: string | null;
-  range_image_url: string | null;
+  cover_url: string | undefined;
 }
 
 interface location {
