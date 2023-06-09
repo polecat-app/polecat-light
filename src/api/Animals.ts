@@ -35,7 +35,7 @@ async function getSpecies(
 
 interface searchProps {
   language: Language;
-  search_term: string;
+  search_prompt: string;
   range_from: number;
   range_to: number;
 }
@@ -45,7 +45,7 @@ async function getSpeciesBySearch(
   setData: Function
 ) {
   const response = await supabase.rpc(
-    "__search_animals",
+    "__search_species",
     args
   );
   if (response && response.data) {

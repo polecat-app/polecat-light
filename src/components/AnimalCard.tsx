@@ -6,9 +6,9 @@ import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { getThumbnailSignedURL } from "../api/Images";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
-function AnimalCard(props: animalProps) {
+const AnimalCard = memo(function AnimalCard(props: animalProps) {
   const navigation = useNavigation();
   const [thumbnailURL, setThumbnailURL] = useState<string | undefined>(undefined);
 
@@ -63,7 +63,7 @@ function AnimalCard(props: animalProps) {
       </View>
     </TouchableOpacity>
   );
-}
+});
 
 function AnimalCardSkeleton() {
   return (
