@@ -1,5 +1,5 @@
 import { CommonActions, useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, View, Text, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import Skeleton from "./Skeleton";
 import Tag from "./Tag";
 import textStyles from "../styles/TextStyles";
@@ -7,10 +7,11 @@ import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { getThumbnailSignedURL } from "../api/Images";
 import { memo, useEffect, useState } from "react";
+import {Image} from "react-native-expo-image-cache";
 
 const AnimalCard = memo(function AnimalCard(props: animalProps) {
   const navigation = useNavigation();
-  const [thumbnailURL, setThumbnailURL] = useState<string | undefined>(undefined);
+  const [thumbnailURL, setThumbnailURL] = useState<string>("");
 
   useEffect(() => {
     getThumbnailSignedURL(props.species_id, setThumbnailURL);
@@ -35,7 +36,7 @@ const AnimalCard = memo(function AnimalCard(props: animalProps) {
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: thumbnailURL }}
+          uri={thumbnailURL}
         />
       </View>
       <View style={styles.textContainer}>
