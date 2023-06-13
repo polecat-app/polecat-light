@@ -5,9 +5,9 @@ import {
   View,
   ImageBackground,
   ScrollView,
-  Image,
   Animated,
   Dimensions,
+  Image as ReactImage,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import textStyles from "../styles/TextStyles";
@@ -22,6 +22,8 @@ import { getSpeciesDetails } from "../api/Animals";
 import { SaveTypes } from "../util/Constants";
 import { saveAnimal, unSaveAnimal } from "../api/Saving";
 import { useTranslation } from "react-i18next";
+import { getRangeSignedURL } from "../api/Images";
+import { Image } from "react-native-expo-image-cache";
 
 type AnimalScreenProps = NativeStackScreenProps<
   DiscoverStackParamList,
@@ -32,6 +34,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
   const props = route.params;
   const offset = useRef(new Animated.Value(0)).current;
   const windowWidth = Dimensions.get("window").width;
+  const [rangeURL, setRangeURL] = useState<string | null>(null);
 
   const [liked, setLiked] = useState(props.liked);
   const [seen, setSeen] = useState(props.seen);
@@ -48,6 +51,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
 
   useEffect(() => {
     getSpeciesDetails(props.species_id, language, setSpeciesDetails);
+    getRangeSignedURL(props.species_id, setRangeURL);
   }, []);
 
   function onPressLike() {
@@ -173,16 +177,14 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
             {speciesDetails.description}
           </Text>
           <Text style={styles.header}>Range</Text>
-          <Image
-            resizeMode={"contain"}
-            style={styles.rangeImage}
-            source={{
-              uri:
-                speciesDetails.range_image_url !== null
-                  ? speciesDetails.range_image_url
-                  : "",
-            }}
-          />
+          {rangeURL ? (
+            <Image style={styles.rangeImage} uri={rangeURL} />
+          ) : (
+            <ReactImage
+              style={styles.rangeImage}
+              source={require("../../assets/regions/world.jpg")}
+            />
+          )}
 
           <Text style={styles.header}>Similar animals</Text>
         </View>
