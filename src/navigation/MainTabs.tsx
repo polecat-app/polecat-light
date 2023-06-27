@@ -20,7 +20,7 @@ const MainTabs = () => {
           } else if (route.name === "Saved") {
             iconName = focused ? "ios-bookmark" : "ios-bookmark-outline";
           } else if (route.name === "Account") {
-            iconName = focused ? "person-circle" : "person-circle-outline";
+            iconName = focused ? "settings" : "settings-outline";
           }
           // @ts-ignore
           return <Ionicons name={iconName} size={size} color={color} />;

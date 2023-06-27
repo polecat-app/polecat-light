@@ -1,1 +1,8 @@
-{}
+{
+  "settings": "Settings",
+  "actions": "Actions",
+  "delete saved": "Delete saved species",
+  "language": "Language",
+  "greeting": "Hello",
+  "farewell": "Goodbye"
+}

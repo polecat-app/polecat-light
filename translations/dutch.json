@@ -1,1 +1,8 @@
-{}
+{
+  "settings": "Instellingen",
+  "actions": "Acties",
+  "delete saved": "Verwijder opgeslagen soorten",
+  "language": "Taal",
+  "greeting": "Hallo",
+  "farewell": "Vaarwel"
+}

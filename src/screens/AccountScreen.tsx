@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import React from "react";
@@ -6,40 +6,27 @@ import { View } from "react-native";
 import TopBarContainer from "../components/TopBarContainer";
 import { Section, SectionButton, SectionRow } from "../components/ui/Section";
 import LanguageSelector from "../components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 function AccountScreen() {
+
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <TopBarContainer title="Account" />
+      <TopBarContainer title={t('settings')} />
       <ScrollView style={styles.scrollView}>
-        <Section title="Details">
-          <SectionRow icon="mail-outline">
-            email
-          </SectionRow>
-          <SectionRow
-            icon="calendar-outline"
-            isLast={true}
-          >
-            date
-          </SectionRow>
-        </Section>
-        <Section title="Actions">
-          <SectionButton
-            icon="log-out-outline"
-            onPress={() => {}}
-          >
-            Logout
-          </SectionButton>
+        <Section title={t('actions')}>
           <SectionButton
             icon="trash-outline"
             iconColor={Colors.Error}
             onPress={() => {}}
             isLast={true}
           >
-            Delete account
+            {t('delete saved')}
           </SectionButton>
         </Section>
-        <Section title="Language">
+        <Section title={t('language')}>
           <LanguageSelector></LanguageSelector>
         </Section>
       </ScrollView>
