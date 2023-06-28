@@ -49,6 +49,8 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
   // @ts-ignore
   const language: Language = i18n.language;
 
+  const { t } = useTranslation();
+
   useEffect(() => {
     getSpeciesDetails(props.species_id, language, setSpeciesDetails);
     getRangeSignedURL(props.species_id, setRangeURL);
@@ -172,11 +174,11 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
               );
             })}
           </View>
-          <Text style={styles.header}>Summary</Text>
+          <Text style={styles.header}>{t("summary")}</Text>
           <Text style={[textStyles.basic, styles.descriptionItem]}>
             {speciesDetails.description}
           </Text>
-          <Text style={styles.header}>Range</Text>
+          <Text style={styles.header}>{t("range")}</Text>
           {rangeURL ? (
             <Image style={styles.rangeImage} uri={rangeURL} />
           ) : (
@@ -186,7 +188,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
             />
           )}
 
-          <Text style={styles.header}>Similar animals</Text>
+          <Text style={styles.header}>{t("similar animals")}</Text>
         </View>
         <AnimalList speciesId={props.species_id} listLength={5}></AnimalList>
       </ScrollView>

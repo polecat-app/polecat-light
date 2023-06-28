@@ -36,7 +36,7 @@ function AnimalList({ speciesId, listLength }: AnimalListProps) {
 
   useEffect(() => {
     fetchData();
-  }, [locationContext.region, speciesId]);
+  }, [locationContext.region, speciesId, language]);
 
   return isLoading ? (
     <ScrollView style={styles.scrollViewContainer}>

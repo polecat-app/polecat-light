@@ -52,7 +52,7 @@ function AnimalFlatList({
       setFiltersUpdating(false);
     }, timeOutValue);
     return () => clearTimeout(delayDebounceFn);
-  }, [filterTags, saveType, searchPhrase, locationContext.region]);
+  }, [filterTags, saveType, searchPhrase, locationContext.region, language]);
 
   // Fetch data on page change
   useEffect(() => {
