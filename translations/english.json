@@ -1,4 +1,9 @@
 {
+  "select option": "Select option",
+  "select filters": "Select filters",
+  "discover animals": "Discover animals",
+  "search": "Search",
+  "close": "Close",
   "settings": "Settings",
   "actions": "Actions",
   "delete saved": "Delete saved species",

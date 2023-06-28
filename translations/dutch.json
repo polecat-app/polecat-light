@@ -1,4 +1,9 @@
 {
+  "select option": "Selecteer een optie",
+  "select filters": "Selecteer filters",
+  "discover animals": "Ontdek soorten",
+  "search": "Zoeken",
+  "close": "Sluit",
   "settings": "Instellingen",
   "actions": "Acties",
   "delete saved": "Verwijder opgeslagen soorten",

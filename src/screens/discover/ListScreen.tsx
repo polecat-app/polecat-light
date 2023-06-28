@@ -6,6 +6,7 @@ import FilterBar from "../../components/FilterBar";
 import AnimalFlatList from "../../components/AnimalFlatList";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { DiscoverStackParamList } from "../../types/navigation";
+import { useTranslation } from "react-i18next";
 
 type ListScreenProps = NativeStackScreenProps<DiscoverStackParamList, "List">;
 
@@ -14,10 +15,11 @@ function ListScreen({ route }: ListScreenProps) {
   const [selected, setSelected] = useState<StaticTags[]>([]);
   const [searchPhrase, setSearchPhrase] = useState("");
   const [clicked, setClicked] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <View style={{ flexDirection: "column", width: "100%", flex: 1 }}>
-      <TopBarContainer title="Discover animals">
+      <TopBarContainer title={t("discover animals")}>
         {clicked && (
           <SearchBar
             searchPhrase={searchPhrase}

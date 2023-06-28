@@ -10,6 +10,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DiscoverStackParamList } from "../types/navigation";
 import { LocationContext } from "../provider/LocationProvider";
 import { Tags } from "../util/Constants";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   setClicked: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,6 +24,8 @@ function FilterBar({ setClicked, setSelected, selected }: Props) {
 
   // Location context
   const locationContext = useContext(LocationContext);
+
+  const { t } = useTranslation();
 
   // Get all tags
   // @ts-ignore
@@ -68,7 +71,8 @@ function FilterBar({ setClicked, setSelected, selected }: Props) {
           save="value"
           onSelect={() => {}}
           label="Filters"
-          placeholder="Select filters"
+          // @ts-ignore
+          placeholder={t("select filters")}
           maxHeight={285}
           selected={selected}
         />

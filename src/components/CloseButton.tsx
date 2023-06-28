@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text } from "react-native";
 import textStyles from "../styles/TextStyles";
 
@@ -6,6 +7,8 @@ interface CloseButtonProps {
 }
 
 function CloseButton({ closeFunction }: CloseButtonProps) {
+  const { t } = useTranslation();
+
   return (
     <Pressable
       style={styles.closeButton}
@@ -13,7 +16,7 @@ function CloseButton({ closeFunction }: CloseButtonProps) {
         closeFunction();
       }}
     >
-      <Text style={textStyles.basicAccentBold}>Close</Text>
+      <Text style={textStyles.basicAccentBold}>{t("close")}</Text>
     </Pressable>
   );
 }

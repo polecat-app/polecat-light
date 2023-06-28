@@ -5,6 +5,7 @@ import CloseButton from "./CloseButton";
 import { Colors } from "../styles/Colors";
 import TextStyles from "../styles/TextStyles";
 import { Offsets } from "../styles/Offsets";
+import { useTranslation } from "react-i18next";
 
 interface TopBarContainerProps {
   searchPhrase: string;
@@ -17,6 +18,8 @@ function SearchBar({
   setSearchPhrase,
   setClicked,
 }: TopBarContainerProps) {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.row}>
       <View style={styles.searchBar}>
@@ -32,7 +35,8 @@ function SearchBar({
             styles.input,
             { opacity: searchPhrase.length ? 1 : 0.5 },
           ]}
-          placeholder="Search"
+          // @ts-ignore
+          placeholder={t("search")}
           placeholderTextColor={Colors.Primary}
           value={searchPhrase}
           onChangeText={setSearchPhrase}

@@ -13,6 +13,7 @@ import Tag from "./Tag";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import { useTranslation } from "react-i18next";
 
 interface dataTag {
   key: StaticTags;
@@ -40,7 +41,7 @@ function MultipleSelectList({
   data,
   onSelect = () => {},
   label,
-  notFoundText = "No data found",
+  notFoundText = "",
   save = "key",
   dropdownShown = false,
   selected,
@@ -51,6 +52,7 @@ function MultipleSelectList({
   const [height, setHeight] = useState<number>(350);
   const animatedvalue = React.useRef(new Animated.Value(0)).current;
   const [filtereddata, setFilteredData] = useState(data);
+  const { t } = useTranslation();
 
   const slidedown = () => {
     setDropdown(true);
@@ -144,7 +146,7 @@ function MultipleSelectList({
             {selectedval?.length == 0
               ? placeholder
                 ? placeholder
-                : "Select option"
+                : t('select option')
               : selectedval}
           </Text>
           <Ionicons
