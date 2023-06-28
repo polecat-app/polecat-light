@@ -194,7 +194,7 @@ function MultipleSelectList({
                             ></Ionicons>
                           ) : null}
                         </View>
-                        <Text style={{ color: "#c4c5c6" }}>{value}</Text>
+                        <Text style={{ color: "#c4c5c6" }}>{t(value)}</Text>
                       </TouchableOpacity>
                     );
                   } else {
@@ -255,7 +255,7 @@ function MultipleSelectList({
                             ></Ionicons>
                           ) : null}
                         </View>
-                        <Text style={textStyles.basicAccent}>{value}</Text>
+                        <Text style={textStyles.basicAccent}>{t(value)}</Text>
                       </TouchableOpacity>
                     );
                   }

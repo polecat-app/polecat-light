@@ -1,6 +1,6 @@
 {
   "select option": "Select option",
-  "select filters": "Select filters",
+  "select filters": "Filters",
   "discover animals": "Discover animals",
   "search": "Search",
   "close": "Close",
@@ -8,6 +8,20 @@
   "actions": "Actions",
   "delete saved": "Delete saved species",
   "language": "Language",
-  "greeting": "Hello",
-  "farewell": "Goodbye"
+  "amphibian": "Amphibian",
+  "bird": "Bird",
+  "mammal": "Mammal",
+  "reptile": "Reptile",
+  "vulnerable": "Vulnerable",
+  "endangered": "Endangered",
+  "migratory": "Migratory",
+  "nocturnal": "Nocturnal",
+  "poisonous": "Poisonous",
+  "endemic": "Endemic",
+  "pick location": "Pick location",
+  "confirm location": "Confirm location",
+  "cancel": "Cancel",
+  "saved animals": "Saved animals",
+  "liked": "Liked",
+  "seen": "Seen"
 }

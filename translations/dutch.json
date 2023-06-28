@@ -1,6 +1,6 @@
 {
   "select option": "Selecteer een optie",
-  "select filters": "Selecteer filters",
+  "select filters": "Filters",
   "discover animals": "Ontdek soorten",
   "search": "Zoeken",
   "close": "Sluit",
@@ -8,6 +8,20 @@
   "actions": "Acties",
   "delete saved": "Verwijder opgeslagen soorten",
   "language": "Taal",
-  "greeting": "Hallo",
-  "farewell": "Vaarwel"
+  "amphibian": "Amfibie",
+  "bird": "Vogel",
+  "mammal": "Zoogdier",
+  "reptile": "Reptiel",
+  "vulnerable": "Kwetsbaar",
+  "endangered": "Bedreigd",
+  "migratory": "Migrerend",
+  "nocturnal": "Nachtdier",
+  "poisonous": "Giftig",
+  "endemic": "Endemisch",
+  "pick location": "Selecteer locatie",
+  "confirm location": "Bevestig locatie",
+  "cancel": "Annuleer",
+  "saved animals": "Mijn lijst",
+  "liked": "Geliked",
+  "seen": "Gezien"
 }

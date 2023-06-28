@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Colors } from "../styles/Colors";
 import textStyles from "../styles/TextStyles";
 import { Tags } from "../util/Constants";
+import { useTranslation } from "react-i18next";
 
 interface TagProps {
   tagName: StaticTags | null;
@@ -17,6 +18,7 @@ function Tag({ tagName, onlyIcon = false }: TagProps) {
   if (tag === null) {
     return null;
   }
+  const { t } = useTranslation();
 
   return (
     <View style={[styles.container, { backgroundColor: tag.color }]}>
@@ -27,7 +29,7 @@ function Tag({ tagName, onlyIcon = false }: TagProps) {
             { marginHorizontal: 7, marginVertical: 2 },
           ]}
         >
-          {tagName}
+          {t(tagName)}
         </Text>
       )}
       <MaterialCommunityIcons

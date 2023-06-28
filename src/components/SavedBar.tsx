@@ -4,8 +4,11 @@ import SwitchSelector from "react-native-switch-selector";
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import { useTranslation } from "react-i18next";
 
 function SavedBar({ setSavedFilterState }: { setSavedFilterState: Function }) {
+  const { t } = useTranslation();
+
   return (
     <View>
       <View style={styles.row}>
@@ -29,8 +32,8 @@ function SavedBar({ setSavedFilterState }: { setSavedFilterState: Function }) {
             height={30}
             bold={true}
             options={[
-              { label: "Liked", value: "Liked" },
-              { label: "Seen", value: "Seen" },
+              { label: t("liked"), value: t("liked") },
+              { label: t("seen"), value: t("seen") },
             ]}
             testID="gender-switch-selector"
             accessibilityLabel="gender-switch-selector"

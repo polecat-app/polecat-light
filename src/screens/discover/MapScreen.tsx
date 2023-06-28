@@ -11,12 +11,14 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { DiscoverStackParamList } from "../../types/navigation";
 import { alerts } from "../../util/Constants";
 import { LocationContext } from "../../provider/LocationProvider";
+import { useTranslation } from "react-i18next";
 
 type MapScreenProps = NativeStackScreenProps<DiscoverStackParamList, "Map">;
 
 function MapScreen({ navigation }: MapScreenProps) {
   // Location context
   const locationContext = useContext(LocationContext);
+  const { t } = useTranslation();
 
   // Save original location
   const [originalLocation, setOriginalLocation] = useState<location>({
@@ -90,7 +92,7 @@ function MapScreen({ navigation }: MapScreenProps) {
 
       {/* Top bar */}
       <View style={[styles.onMapTop, styles.shadow]}>
-        <TopBarContainer title="Pick location">
+        <TopBarContainer title={t("pick location")}>
           <View style={styles.row}>
             <Ionicons
               style={{ marginRight: 5 }}
@@ -122,10 +124,10 @@ function MapScreen({ navigation }: MapScreenProps) {
             }}
             style={styles.buttonConfirm}
           >
-            <Text style={textStyles.basicAccentBold}>Confirm location</Text>
+            <Text style={textStyles.basicAccentBold}>{t("confirm location")}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={cancelHandler} style={styles.buttonCancel}>
-            <Text style={textStyles.basicAccentBold}>Cancel</Text>
+            <Text style={textStyles.basicAccentBold}>{t("cancel")}</Text>
           </TouchableOpacity>
         </View>
       </View>
