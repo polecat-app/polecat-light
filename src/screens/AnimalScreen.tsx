@@ -8,6 +8,9 @@ import {
   Animated,
   Dimensions,
   Image as ReactImage,
+  Modal,
+  Linking,
+  TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import textStyles from "../styles/TextStyles";
@@ -38,6 +41,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
 
   const [liked, setLiked] = useState(props.liked);
   const [seen, setSeen] = useState(props.seen);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [speciesDetails, setSpeciesDetails] = useState<animalDetails>({
     species_id: null,
@@ -149,7 +153,63 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
             <Text style={textStyles.overlayBold} numberOfLines={3}>
               {props.common_name || props.genus + " " + props.species}
             </Text>
+            {speciesDetails.cover_url && 
+            <Pressable
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              <Ionicons
+                name={"expand-outline"}
+                size={28}
+                style={liked ? styles.like : styles.unLike}
+              />
+            </Pressable>}
           </View>
+
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(false);
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "black",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <ImageBackground
+                style={{ width: "100%", height: "90%" }}
+                source={{ uri: speciesDetails.cover_url }}
+                resizeMode="contain"
+              />
+              <TouchableOpacity
+                style={{ position: "absolute", top: 50, right: 10 }}
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+              >
+                <Ionicons name="contract-outline" size={28} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ position: "absolute", bottom: 10 }}
+                onPress={() => {
+                  if (speciesDetails.cover_url) {
+                    Linking.openURL(speciesDetails.cover_url);
+                  }
+                }}
+              >
+                <Text style={{ color: "white" }}>
+                  {speciesDetails.cover_url}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
         </View>
 
         {/* Description Text */}
@@ -221,8 +281,9 @@ const styles = StyleSheet.create({
   onImage: {
     height: "100%",
     width: "100%",
-    justifyContent: "flex-end",
-    flexDirection: "column",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "flex-end",
     zIndex: 5,
     position: "absolute",
     padding: Offsets.DefaultMargin,
