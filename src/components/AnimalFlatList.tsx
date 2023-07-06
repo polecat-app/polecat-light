@@ -9,12 +9,9 @@ import {
 } from "react-native";
 import { AnimalCard, AnimalCardSkeleton } from "./AnimalCard";
 import { Offsets } from "../styles/Offsets";
-import {
-  getSpecies,
-  getSpeciesBySearch,
-} from "../api/Animals";
+import { getSpecies, getSpeciesBySearch } from "../api/Animals";
 import { LocationContext } from "../provider/LocationProvider";
-import { getSavedAnimals } from "../api/Saving";
+import { getSavedSpecies } from "../api/Saving";
 import { SaveTypes } from "../util/Constants";
 import { useTranslation } from "react-i18next";
 
@@ -94,10 +91,13 @@ function AnimalFlatList({
 
     // Get saved species
     else if (saveType) {
-      getSavedAnimals(
-        saveType,
-        page * pageSize,
-        page * pageSize + pageSize,
+      getSavedSpecies(
+        {
+          language: language,
+          save_type: saveType,
+          range_from: page * pageSize,
+          range_to: page * pageSize + pageSize,
+        },
         setData
       );
     }

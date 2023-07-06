@@ -23,7 +23,7 @@ import Tag from "../components/Tag";
 import AnimalList from "../components/AnimalList";
 import { getSpeciesDetails } from "../api/Animals";
 import { SaveTypes } from "../util/Constants";
-import { saveAnimal, unSaveAnimal } from "../api/Saving";
+import { isSavedAnimal, saveAnimal, unSaveAnimal } from "../api/Saving";
 import { useTranslation } from "react-i18next";
 import { getRangeSignedURL } from "../api/Images";
 import { Image } from "react-native-expo-image-cache";
@@ -39,8 +39,8 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
   const windowWidth = Dimensions.get("window").width;
   const [rangeURL, setRangeURL] = useState<string | null>(null);
 
-  const [liked, setLiked] = useState(props.liked);
-  const [seen, setSeen] = useState(props.seen);
+  const [liked, setLiked] = useState<boolean>(false);
+  const [seen, setSeen] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   const [speciesDetails, setSpeciesDetails] = useState<animalDetails>({
@@ -77,6 +77,21 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
     }
     setSeen(!seen);
   }
+
+  async function updateSaved () {
+    if (await isSavedAnimal(props.species_id, SaveTypes.liked)) {
+      setLiked(true)
+    }
+    else {setLiked(false)}
+    if (await isSavedAnimal(props.species_id, SaveTypes.seen)) {
+      setSeen(true)
+    }
+    else (setSeen(false))
+  }
+
+  useEffect(() => {
+    updateSaved()
+  }, [])
 
   const headerHeight = offset.interpolate({
     inputRange: [windowWidth - 120, windowWidth - 80],
@@ -162,7 +177,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
               <Ionicons
                 name={"expand-outline"}
                 size={28}
-                style={liked ? styles.like : styles.unLike}
+                color="white"
               />
             </Pressable>}
           </View>
