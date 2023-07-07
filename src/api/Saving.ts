@@ -23,6 +23,14 @@ const getList = async (key: string): Promise<number[] | null> => {
   }
 };
 
+const deleteList = async (key: string) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const updateList = async (key: string, newItem: number) => {
   try {
     const list = await getList(key);
@@ -66,6 +74,11 @@ async function isSavedAnimal(species_id: number, save_type: SaveTypes) {
   return isInList(save_type, species_id)
 }
 
+async function unSaveAllAnimals() {
+  deleteList(SaveTypes.liked)
+  deleteList(SaveTypes.seen)
+}
+
 interface getSavedSpeciesProps {
   language: Language;
   save_type: SaveTypes;
@@ -92,4 +105,4 @@ async function getSavedSpecies(args: getSavedSpeciesProps, setData: Function) {
   }
 }
 
-export { saveAnimal, unSaveAnimal, isSavedAnimal, getSavedSpecies };
+export { saveAnimal, unSaveAnimal, isSavedAnimal, getSavedSpecies, unSaveAllAnimals };

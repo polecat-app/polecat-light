@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text } from "react-native";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import React from "react";
@@ -7,10 +7,30 @@ import TopBarContainer from "../components/TopBarContainer";
 import { Section, SectionButton, SectionRow } from "../components/ui/Section";
 import LanguageSelector from "../components/LanguageSelector";
 import { useTranslation } from "react-i18next";
+import { unSaveAllAnimals } from "../api/Saving";
 
 function AccountScreen() {
 
   const { t } = useTranslation();
+
+  const confirmDelete = () => {
+    Alert.alert(
+      "Confirmation", // Title of the confirmation window
+      "Are you sure you want to delete all saved animals?", // Message in the confirmation window
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { 
+          text: "OK", 
+          onPress: () => unSaveAllAnimals() 
+        }
+      ],
+      { cancelable: true }
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -20,7 +40,7 @@ function AccountScreen() {
           <SectionButton
             icon="trash-outline"
             iconColor={Colors.Error}
-            onPress={() => {}}
+            onPress={confirmDelete}
             isLast={true}
           >
             {t('delete saved')}
