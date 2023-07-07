@@ -61,10 +61,10 @@ const Tags: TagsType = {
 const LANGUAGES: languageDropdownItem[] = [
   { value: "english", flag: "🇬🇧" },
   { value: "dutch", flag: "🇳🇱" },
-  { value: "spanish", flag: "🇪🇸" },
-  { value: "german", flag: "🇩🇪" },
-  { value: "french", flag: "🇫🇷" },
-  { value: "italian", flag: "🇮🇹" },
+  // { value: "spanish", flag: "🇪🇸" },
+  // { value: "german", flag: "🇩🇪" },
+  // { value: "french", flag: "🇫🇷" },
+  // { value: "italian", flag: "🇮🇹" },
 ];
 
 export { Bars, IconTypes, alerts, Tags, SaveTypes, tagNames, LANGUAGES };
