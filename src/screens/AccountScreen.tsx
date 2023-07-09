@@ -20,7 +20,7 @@ function AccountScreen() {
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => {},
           style: "cancel"
         },
         { 

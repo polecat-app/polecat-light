@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     margin: Offsets.DefaultMargin,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: Offsets.BorderRadius,
+    borderRadius: Offsets.DefaultMargin,
   },
   buttonCancel: {
     padding: Offsets.DefaultMargin,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     margin: Offsets.DefaultMargin,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: Offsets.BorderRadius,
+    borderRadius: Offsets.DefaultMargin,
   },
   closeIcon: {
     color: Colors.AccentIcon,

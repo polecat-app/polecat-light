@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -14,6 +14,7 @@ import { LocationContext } from "../provider/LocationProvider";
 import { getSavedSpecies } from "../api/Saving";
 import { SaveTypes } from "../util/Constants";
 import { useTranslation } from "react-i18next";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 interface AnimalFlatListProps {
   timeOutValue: number;
@@ -36,6 +37,40 @@ function AnimalFlatList({
   const [filtersUpdating, setFiltersUpdating] = useState<boolean>(true);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const locationContext = useContext(LocationContext);
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+  const flatListRef = useRef<FlatList<animalProps> | null>(null)
+  const [tabPressCount, setTabPressCount] = useState<number>(0);
+
+  const toTop = () => {
+    if (flatListRef && flatListRef.current && flatListRef.current.scrollToOffset) {
+      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+    }
+  };
+
+  // Set tab press count to 0 if component focus changes
+  useEffect(() => {
+    if (!isFocused) {
+      setTabPressCount(0)
+    }
+  }, [isFocused])
+
+  // Add tab press count if tab is clicked
+  useEffect(() => {
+    // @ts-ignore
+    const unsubscribe = navigation.getParent().addListener("tabPress", (route) => {
+      setTabPressCount(tabPressCount + 1)
+    });
+    return unsubscribe;
+    // @ts-ignore
+  }, [navigation.getParent().addListener(), tabPressCount])
+
+  // If tab pressed twice while in focus, refresh flatlist
+  useEffect(() => {
+    if (tabPressCount > 1) {
+      onRefresh()
+    }
+  }, [tabPressCount])
 
   const { i18n } = useTranslation();
   // @ts-ignore
@@ -58,7 +93,6 @@ function AnimalFlatList({
     }
   }, [page, filtersUpdating]);
 
-  // Fetch data
   const fetchData = async () => {
     setIsLoading(true);
 
@@ -123,6 +157,7 @@ function AnimalFlatList({
   }
 
   const onRefresh = async () => {
+    toTop()
     setIsRefreshing(true);
     await timeout(timeOutValue);
     setPage(() => 0);
@@ -146,6 +181,7 @@ function AnimalFlatList({
     </ScrollView>
   ) : (
     <FlatList
+      ref={flatListRef}
       data={data}
       keyExtractor={(item: animalProps) => item.species_id.toString()}
       contentContainerStyle={styles.scrollViewContainer}
