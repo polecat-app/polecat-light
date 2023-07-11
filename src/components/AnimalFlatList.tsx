@@ -29,8 +29,7 @@ function AnimalFlatList({
   saveType,
   searchPhrase,
 }: AnimalFlatListProps) {
-  // State
-  const pageSize = 10;
+  // States
   const [page, setPage] = useState<number>(0);
   const [data, setData] = useState<animalProps[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,64 +38,58 @@ function AnimalFlatList({
   const locationContext = useContext(LocationContext);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const flatListRef = useRef<FlatList<animalProps> | null>(null)
+  const flatListRef = useRef<FlatList<animalProps> | null>(null);
   const [tabPressCount, setTabPressCount] = useState<number>(0);
+  const { i18n } = useTranslation();
 
-  const toTop = () => {
-    if (flatListRef && flatListRef.current && flatListRef.current.scrollToOffset) {
-      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
-    }
-  };
+  // Vars
+  // @ts-ignore
+  const language: Language = i18n.language;
+  const pageSize = 10;
+
+  // TAB PRESS
 
   // Set tab press count to 0 if component focus changes
   useEffect(() => {
     if (!isFocused) {
-      setTabPressCount(0)
+      setTabPressCount(0);
     }
-  }, [isFocused])
+  }, [isFocused]);
 
-  // Add tab press count if tab is clicked
   useEffect(() => {
-    // @ts-ignore
-    const unsubscribe = navigation.getParent().addListener("tabPress", (route) => {
-      setTabPressCount(tabPressCount + 1)
+    //@ts-ignore
+    const unsubscribe = navigation.getParent().addListener("tabPress", () => {
+      setTabPressCount((prev) => prev + 1);
     });
+
     return unsubscribe;
-    // @ts-ignore
-  }, [navigation.getParent().addListener(), tabPressCount])
+  }, [navigation]);
 
-  // If tab pressed twice while in focus, refresh flatlist
   useEffect(() => {
-    if (tabPressCount > 1) {
-      onRefresh()
+    if (tabPressCount >= 2 && isFocused) {
+      onRefresh();
+      setTabPressCount(0);
     }
-  }, [tabPressCount])
-
-  const { i18n } = useTranslation();
-  // @ts-ignore
-  const language: Language = i18n.language;
+  }, [tabPressCount, isFocused]);
 
   // Update results on change in filters, after timeout
   useEffect(() => {
-    !filtersUpdating && setFiltersUpdating(true);
+    !filtersUpdating && setFiltersUpdating(true); // Activate skeleton list
     const delayDebounceFn = setTimeout(() => {
-      setPage(0);
-      setFiltersUpdating(false);
+      setData([]); // Clear data
+      setPage(() => {
+        const newPage = 0; // Move to first page
+        fetchData(newPage); // Fetch new data
+        return newPage;
+      });
+      setFiltersUpdating(false); // Deactivate skeleton list
     }, timeOutValue);
     return () => clearTimeout(delayDebounceFn);
   }, [filterTags, saveType, searchPhrase, locationContext.region, language]);
 
-  // Fetch data on page change
-  useEffect(() => {
-    if (!filtersUpdating) {
-      fetchData();
-    }
-  }, [page, filtersUpdating]);
-
-  const fetchData = async () => {
+  // Fetch data and add to data state
+  const fetchData = async (page: number) => {
     setIsLoading(true);
-
-    // Search species
     if (searchPhrase) {
       getSpeciesBySearch(
         {
@@ -107,10 +100,7 @@ function AnimalFlatList({
         },
         setData
       );
-    }
-
-    // Get filtered ecoregion species
-    else if (filterTags && locationContext.region) {
+    } else if (filterTags && locationContext.region) {
       getSpecies(
         {
           language: language,
@@ -121,10 +111,7 @@ function AnimalFlatList({
         },
         setData
       );
-    }
-
-    // Get saved species
-    else if (saveType) {
+    } else if (saveType) {
       getSavedSpecies(
         {
           language: language,
@@ -135,33 +122,51 @@ function AnimalFlatList({
         setData
       );
     }
-
-    // Get all species
-    const newAnimals: animalProps[] = [];
-    if (page === 0) {
-      setData(newAnimals);
-    } else {
-      setData((data) => [...data, ...newAnimals]);
-    }
     setIsLoading(false);
   };
 
+  // If end of flatlist reached, try to fetch more data
   const fetchMoreData = () => {
     if (!isLoading) {
-      setPage((page) => page + 1);
+      setPage((prevPage) => {
+        const newPage = prevPage + 1;
+        fetchData(newPage);
+        return newPage;
+      });
     }
   };
 
+  // Timeout function
   function timeout(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  // Navigate to top of list
+  const toTop = () => {
+    if (
+      flatListRef &&
+      flatListRef.current &&
+      flatListRef.current.scrollToOffset
+    ) {
+      flatListRef.current.scrollToOffset({ animated: true, offset: 0 });
+    }
+  };
+
+  // On pull down
   const onRefresh = async () => {
-    toTop()
+    toTop();
     setIsRefreshing(true);
     await timeout(timeOutValue);
-    setPage(() => 0);
+    setFiltersUpdating(true)
+    await timeout(timeOutValue / 2);
+    setData([]); // Clear data
+    setPage(() => {
+      const newPage = 0;
+      fetchData(newPage);
+      return newPage;
+    });
     setIsRefreshing(false);
+    setFiltersUpdating(false)
   };
 
   const renderFooter = () => {

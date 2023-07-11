@@ -18,7 +18,7 @@ function ListScreen() {
         <SavedBar setSavedFilterState={setSavedFilterState}></SavedBar>
       </TopBarContainer>
       <AnimalFlatList
-        timeOutValue={500}
+        timeOutValue={1500}
         saveType={savedFilterState == 'Liked'? SaveTypes.liked : SaveTypes.seen}
       ></AnimalFlatList>
     </View>
