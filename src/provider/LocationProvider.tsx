@@ -55,7 +55,7 @@ const LocationProvider = (props: Props) => {
         setGeoName
       );
     }
-  }, [location]);
+  }, [location, language]);
 
   // Set location name
   useEffect(() => {

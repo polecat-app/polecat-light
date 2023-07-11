@@ -14,18 +14,26 @@ const resources = {
   },
 };
 
-const getDefaultLang = async () => {
+i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
+  resources,
+  lng: "english", // Default to English
+  fallbackLng: "english",
+  interpolation: {
+    escapeValue: false, // not needed for react!!
+  },
+  react: {
+    useSuspense:false,
+  },
+});
+
+const setLanguage = async () => {
   // @ts-ignore
   const storedLang: Language = await AsyncStorage.getItem("language");
-  return i18n.use(initReactI18next).init({
-    resources,
-    lng: storedLang ? storedLang : "english",
-    //language to use if translations in user language are not available
-    fallbackLng: "english",
-    interpolation: {
-      escapeValue: false, // not needed for react!!
-    },
-  });
-};
+  const languageToSet = storedLang ? storedLang : "english";
+  i18n.changeLanguage(languageToSet);
+}
 
-export default getDefaultLang();
+setLanguage();
+
+export default i18n;

@@ -47,7 +47,12 @@ function AccountScreen() {
           </SectionButton>
         </Section>
         <Section title={t('language')}>
+        <SectionRow
+            icon="globe"
+            isLast={true}
+          >
           <LanguageSelector></LanguageSelector>
+          </SectionRow>
         </Section>
       </ScrollView>
     </View>

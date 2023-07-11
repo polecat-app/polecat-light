@@ -6,11 +6,13 @@ const textStyles = StyleSheet.create({
   basic: {
     color: Colors.Text,
     lineHeight: 20,
+    fontSize: 14
   },
   basicBold: {
     fontWeight: "bold",
     color: Colors.Text,
     lineHeight: 20,
+    fontSize: 14
   },
   header: {
     fontWeight: "bold",
@@ -22,6 +24,7 @@ const textStyles = StyleSheet.create({
     fontStyle: "italic",
     color: Colors.TextSecondary,
     lineHeight: 20,
+    fontSize: 14
   },
 
   // Accent
@@ -35,6 +38,7 @@ const textStyles = StyleSheet.create({
     lineHeight: 20,
     flexShrink: 1,
     ellipsizeMode: "tail",
+    fontSize: 14
   },
   basicAccentItalic: {
     fontStyle: "italic",
@@ -53,6 +57,7 @@ const textStyles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.AccentText,
     height: 20,
+    fontSize: 14
   },
 });
 

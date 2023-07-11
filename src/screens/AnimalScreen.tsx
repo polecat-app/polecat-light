@@ -49,11 +49,9 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
     cover_url: undefined,
   });
 
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   // @ts-ignore
   const language: Language = i18n.language;
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     getSpeciesDetails(props.species_id, language, setSpeciesDetails);
