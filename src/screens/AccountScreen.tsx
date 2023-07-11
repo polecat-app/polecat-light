@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 import { unSaveAllAnimals } from "../api/Saving";
 
 function AccountScreen() {
-
   const { t } = useTranslation();
 
   const confirmDelete = () => {
@@ -21,12 +20,12 @@ function AccountScreen() {
         {
           text: "Cancel",
           onPress: () => {},
-          style: "cancel"
+          style: "cancel",
         },
-        { 
-          text: "OK", 
-          onPress: () => unSaveAllAnimals() 
-        }
+        {
+          text: "OK",
+          onPress: () => unSaveAllAnimals(),
+        },
       ],
       { cancelable: true }
     );
@@ -34,25 +33,20 @@ function AccountScreen() {
 
   return (
     <View style={styles.container}>
-      <TopBarContainer title={t('settings')} />
+      <TopBarContainer title={t("settings")} />
       <ScrollView style={styles.scrollView}>
-        <Section title={t('actions')}>
+        <Section title={t("actions")}>
           <SectionButton
             icon="trash-outline"
             iconColor={Colors.Error}
             onPress={confirmDelete}
             isLast={true}
           >
-            {t('delete saved')}
+            {t("delete saved")}
           </SectionButton>
         </Section>
-        <Section title={t('language')}>
-        <SectionRow
-            icon="globe"
-            isLast={true}
-          >
+        <Section title={t("language")}>
           <LanguageSelector></LanguageSelector>
-          </SectionRow>
         </Section>
       </ScrollView>
     </View>

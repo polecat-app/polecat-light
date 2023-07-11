@@ -6,32 +6,41 @@ import { Offsets } from "../../styles/Offsets";
 import textStyles from "../../styles/TextStyles";
 
 interface SectionButtonProps {
-  icon: string,
-  iconColor?: string,
-  children: ReactNode,
-  onPress?: () => void,
-  isLast?: boolean, // new prop
+  icon: string;
+  iconColor?: string;
+  children: ReactNode;
+  onPress?: () => void;
+  isLast?: boolean; // new prop
 }
 
-function SectionButton({ icon, iconColor, children, onPress, isLast }: SectionButtonProps) {
+function SectionButton({
+  icon,
+  iconColor,
+  children,
+  onPress,
+  isLast,
+}: SectionButtonProps) {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.row, isLast && styles.lastRow]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.row, isLast && styles.lastRow]}
+    >
       <Ionicons
         style={{ marginRight: 5 }}
         // @ts-ignore
         name={icon}
         size={20}
-        color={iconColor? iconColor : Colors.Inactive}
+        color={iconColor ? iconColor : Colors.Inactive}
       />
-  <Text style={[textStyles.basic, styles.text]}>{children}</Text>
-</TouchableOpacity>
+      <Text style={[textStyles.basic, styles.text]}>{children}</Text>
+    </TouchableOpacity>
   );
 }
 
 interface SectionRowProps {
-  icon: string,
-  children: ReactNode,
-  isLast?: boolean, // new prop
+  icon: string;
+  children: ReactNode;
+  isLast?: boolean; // new prop
 }
 
 function SectionRow({ icon, children, isLast }: SectionRowProps) {
@@ -44,8 +53,8 @@ function SectionRow({ icon, children, isLast }: SectionRowProps) {
         size={20}
         color={Colors.Inactive}
       />
-  <Text style={[textStyles.basic, styles.text]}>{children}</Text>
-</View>
+      <Text style={[textStyles.basic, styles.text]}>{children}</Text>
+    </View>
   );
 }
 
@@ -58,9 +67,7 @@ function Section({ title, children }: SectionProps) {
   return (
     <View style={styles.section}>
       <Text style={[textStyles.basicBold, styles.text]}>{title}</Text>
-      <View style={styles.box}>
-        {children}
-      </View>
+      <View style={styles.box}>{children}</View>
     </View>
   );
 }
@@ -78,6 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: Offsets.BorderRadius / 2,
     padding: Offsets.DefaultMargin,
     marginTop: Offsets.DefaultMargin,
+    alignItems: "flex-start",
   },
   header: {
     fontSize: 20,

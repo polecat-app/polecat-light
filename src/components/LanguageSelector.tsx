@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../util/Constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SelectDropdown from 'react-native-select-dropdown'
 import textStyles from "../styles/TextStyles";
 import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
+import RadioGroup from "react-native-radio-buttons-group";
 
 const LanguageSelector: React.FC = () => {
   const { i18n } = useTranslation();
@@ -18,18 +18,19 @@ const LanguageSelector: React.FC = () => {
 
   return (
     <View style={styles.containerStyle}>
-      <SelectDropdown
-        data={LANGUAGES.map(({ value, flag }) => (value))}
-        defaultValue={i18n.language} // current language from i18n
+      <RadioGroup
+        radioButtons={LANGUAGES.map(({ value, flag }) => ({
+          id: value, // acts as primary key, should be unique and non-empty string
+          label: `${value.charAt(0).toUpperCase() + value.slice(1)}`,
+          value: value,
+          labelStyle: textStyles.basic,
+          descriptionStyle: textStyles.basic,
+          color: Colors.Inactive,
+        }))}
         //@ts-ignore
-        onSelect={(selectedItem) => changeLanguage(selectedItem)}
-        buttonStyle={styles.selectedStyle}
-        buttonTextStyle={{...textStyles.basic, textAlign: 'left'}} // Adding textAlign: 'left' to align text to the left
-        dropdownStyle={styles.generalStyle}
-        rowStyle={styles.generalStyle}
-        rowTextStyle={textStyles.basic}
-        selectedRowStyle={styles.generalStyle}
-        selectedRowTextStyle={textStyles.basic}
+        onPress={(selectedItem) => changeLanguage(selectedItem)}
+        selectedId={i18n.language}
+        containerStyle={styles.generalStyle}
       />
     </View>
   );
@@ -38,20 +39,22 @@ const LanguageSelector: React.FC = () => {
 const styles = StyleSheet.create({
   containerStyle: {
     flex: 1,
-    justifyContent: 'center', // Adding justifyContent: 'center' to center the button vertically
-    alignItems: 'center', // Adding alignItems: 'center' to center the button horizontally if needed
+    flexDirection: "row",
+    justifyContent: "center", // Adding justifyContent: 'center' to center the button vertically
+    marginVertical: Offsets.DefaultMargin,
   },
   generalStyle: {
     padding: 0,
     margin: 0,
-    borderRadius: Offsets.BorderRadius
+    alignItems: "flex-start",
+    justifyContent: "center",
   },
   selectedStyle: {
     padding: 0,
     margin: 0,
     backgroundColor: Colors.Primary,
     height: 20,
-  }
+  },
 });
 
 export default LanguageSelector;
