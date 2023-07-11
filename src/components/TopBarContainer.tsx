@@ -3,6 +3,7 @@ import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { ReactNode } from "react";
 import textStyles from "../styles/TextStyles";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface TopBarContainerProps {
   title: string;
@@ -15,9 +16,15 @@ function TopBarContainer({
   backgroundColor = Colors.AccentPrimary,
   children,
 }: TopBarContainerProps): JSX.Element {
+  const insets = useSafeAreaInsets();
+
   return (
     <View style={[styles.barContainer, { backgroundColor }]}>
-      <Text style={[styles.row, textStyles.overlayBold]}>{title}</Text>
+      <Text
+        style={[styles.row, textStyles.overlayBold, { marginTop: insets.top }]}
+      >
+        {title}
+      </Text>
       {children}
     </View>
   );
@@ -30,10 +37,11 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flexDirection: "column",
     width: "100%",
-    padding: Offsets.LargeMargin,
+    paddingTop: Offsets.DefaultMargin,
+    paddingBottom: Offsets.LargeMargin,
+    paddingHorizontal: Offsets.LargeMargin,
   },
   row: {
-    marginTop: Offsets.LargeMargin,
     flexDirection: "row",
     width: "100%",
     alignItems: "center",

@@ -27,6 +27,7 @@ import { isSavedAnimal, saveAnimal, unSaveAnimal } from "../api/Saving";
 import { useTranslation } from "react-i18next";
 import { getRangeSignedURL } from "../api/Images";
 import { Image } from "react-native-expo-image-cache";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type AnimalScreenProps = NativeStackScreenProps<
   DiscoverStackParamList,
@@ -53,6 +54,8 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
   // @ts-ignore
   const language: Language = i18n.language;
 
+  const insets = useSafeAreaInsets();
+
   useEffect(() => {
     getSpeciesDetails(props.species_id, language, setSpeciesDetails);
     getRangeSignedURL(props.species_id, setRangeURL);
@@ -76,20 +79,20 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
     setSeen(!seen);
   }
 
-  async function updateSaved () {
+  async function updateSaved() {
     if (await isSavedAnimal(props.species_id, SaveTypes.liked)) {
-      setLiked(true)
+      setLiked(true);
+    } else {
+      setLiked(false);
     }
-    else {setLiked(false)}
     if (await isSavedAnimal(props.species_id, SaveTypes.seen)) {
-      setSeen(true)
-    }
-    else (setSeen(false))
+      setSeen(true);
+    } else setSeen(false);
   }
 
   useEffect(() => {
-    updateSaved()
-  }, [])
+    updateSaved();
+  }, []);
 
   const headerHeight = offset.interpolate({
     inputRange: [windowWidth - 120, windowWidth - 80],
@@ -107,8 +110,9 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
           top: 0,
           left: 0,
           right: 0,
-          paddingTop: 25,
-          padding: Offsets.DefaultMargin,
+          paddingTop: insets.top + Offsets.DefaultMargin,
+          paddingVertical: Offsets.LargeMargin,
+          paddingBottom: Offsets.DefaultMargin,
           backgroundColor: Colors.AccentPrimary,
           opacity: headerHeight,
         }}
@@ -117,7 +121,9 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
       </Animated.View>
 
       {/* Top bar content */}
-      <View style={styles.row}>
+      <View
+        style={[styles.row, { paddingTop: insets.top + Offsets.DefaultMargin }]}
+      >
         <Pressable
           onPress={() =>
             navigation.navigate("List", { selectedLocation: null })
@@ -166,18 +172,15 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
             <Text style={textStyles.overlayBold} numberOfLines={3}>
               {props.common_name || props.genus + " " + props.species}
             </Text>
-            {speciesDetails.cover_url && 
-            <Pressable
-              onPress={() => {
-                setModalVisible(true);
-              }}
-            >
-              <Ionicons
-                name={"expand-outline"}
-                size={28}
-                color="white"
-              />
-            </Pressable>}
+            {speciesDetails.cover_url && (
+              <Pressable
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+              >
+                <Ionicons name={"expand-outline"} size={28} color="white" />
+              </Pressable>
+            )}
           </View>
 
           <Modal
@@ -197,12 +200,16 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
               }}
             >
               <ImageBackground
-                style={{ width: "100%", height: "90%" }}
+                style={{ width: "100%", height: "100%" }}
                 source={{ uri: speciesDetails.cover_url }}
                 resizeMode="contain"
               />
               <TouchableOpacity
-                style={{ position: "absolute", top: 50, right: 10 }}
+                style={{
+                  position: "absolute",
+                  top: insets.top + Offsets.DefaultMargin,
+                  right: Offsets.DefaultMargin,
+                }}
                 onPress={() => {
                   setModalVisible(false);
                 }}
