@@ -7,7 +7,7 @@ const tagNames: StaticTags[] = [
   "endangered",
   "migratory",
   "nocturnal",
-  "poisonous",
+  "hibernating",
   "endemic",
 ];
 
@@ -54,7 +54,7 @@ const Tags: TagsType = {
   },
   migratory: { color: "skyblue", icon: "earth" },
   nocturnal: { color: "slategray", icon: "moon-waning-crescent" },
-  poisonous: { color: "plum", icon: "skull-outline" },
+  hibernating: { color: "lightsteelblue", icon: "snowflake" },
   endemic: { color: "gold", icon: "map-marker-star-outline" },
 };
 

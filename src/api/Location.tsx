@@ -11,7 +11,7 @@ async function getAddressFromCoordinates(
       longitude: longitude.toString(),
     },
   });
-  setLocationName(response.data.address);
+  setLocationName(response?.data?.address);
 }
 
 export default getAddressFromCoordinates;
