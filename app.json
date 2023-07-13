@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wilddevs.polecat.free"
     },
     "android": {
       "adaptiveIcon": {

@@ -6,7 +6,11 @@ import { SUPABASE_URL } from "react-native-dotenv";
 import { SUPABASE_KEY } from "react-native-dotenv";
 
 // Supabase client
-export const supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
-  localStorage: AsyncStorage as any,
-  detectSessionInUrl: false, // Prevents Supabase from evaluating window.location.href, breaking mobile
-});
+export const supabase = createClient(
+  process.env.SUPABASE_URL || SUPABASE_URL,
+  process.env.SUPABASE_KEY || SUPABASE_KEY,
+  {
+    localStorage: AsyncStorage as any,
+    detectSessionInUrl: false, // Prevents Supabase from evaluating window.location.href, breaking mobile
+  }
+);
