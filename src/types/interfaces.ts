@@ -26,7 +26,7 @@ type StaticTags =
   | "endangered"
   | "migratory"
   | "nocturnal"
-  | "poisonous"
+  | "hibernating"
   | "endemic";
 
 interface languageDropdownItem {
