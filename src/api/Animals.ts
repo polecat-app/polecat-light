@@ -5,7 +5,7 @@ import { convertTagsToBooleans } from "../util/Helpers";
 
 interface getSpeciesProps {
   language: Language;
-  eco_code: string;
+  eco_code: string | null;
   range_from: number;
   range_to: number;
   filter_tags: StaticTags[];

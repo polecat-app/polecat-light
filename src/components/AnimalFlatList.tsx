@@ -100,11 +100,11 @@ function AnimalFlatList({
         },
         setData
       );
-    } else if (filterTags && locationContext.region) {
+    } else if (filterTags) {
       getSpecies(
         {
           language: language,
-          eco_code: locationContext.region.eco_code,
+          eco_code: locationContext.region?.eco_code || null,
           range_from: page * pageSize,
           range_to: page * pageSize + pageSize,
           filter_tags: filterTags,

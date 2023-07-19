@@ -10,7 +10,7 @@ type ContextProps = {
   setLocation: React.Dispatch<React.SetStateAction<location | null>>;
   geoName: string | null;
   region: region | null;
-  locationName: string;
+  locationName: string | null;
 };
 
 const LocationContext = createContext<ContextProps>({
@@ -32,7 +32,7 @@ const LocationProvider = (props: Props) => {
   const [geoName, setGeoName] = useState<string | null>(null);
   const [region, setRegion] = useState<region | null>(null);
   const [locationName, setLocationName] =
-    useState<string>("Loading location..");
+    useState<string | null>("Loading location..");
 
   // Update location by current location on mount
   useEffect(() => {

@@ -47,7 +47,7 @@ function FilterBar({ setClicked, setSelected, selected }: Props) {
             color={Colors.AccentIcon}
           />
           <Text style={textStyles.basicAccentBold} numberOfLines={1}>
-            {locationContext.locationName}
+            {locationContext.locationName || t("pick location")}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

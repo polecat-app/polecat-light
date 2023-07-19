@@ -3,7 +3,7 @@ import { tagNames } from "./Constants";
 function combineNames(
   first: string | null | undefined,
   last: string | null | undefined
-): string {
+): string | null {
   let names: string[] = [];
   if (first) {
     names.push(first);
@@ -11,8 +11,10 @@ function combineNames(
   if (last) {
     names.push(last);
   }
-  const aggregateLocationName = names.join(", ");
-  return aggregateLocationName;
+  if (names) {
+    return names.join(", ");
+  }
+  else {return null}
 }
 
 function convertTagsToBooleans(tags: StaticTags[]): (boolean | null)[] {
