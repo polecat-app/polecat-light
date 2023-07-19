@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
-export default {
+export default ({ config }) => ({
+  ...config,
   expo: {
     name: "Polecat",
     slug: "Polecat",
@@ -44,4 +45,4 @@ export default {
       }
     }
   }
-};
+});
