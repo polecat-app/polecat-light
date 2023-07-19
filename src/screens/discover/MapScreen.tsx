@@ -1,5 +1,5 @@
-import { TouchableOpacity, View, Text, StyleSheet, Alert } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { TouchableOpacity, View, Text, StyleSheet, Alert, Platform } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from "react-native-maps";
 import useLocation from "../../hooks/useLocation";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -64,7 +64,9 @@ function MapScreen({ navigation }: MapScreenProps) {
       mapRef.current?.animateToRegion({
         latitude: lat,
         longitude: lng,
-      });
+        latitudeDelta: 0.5,
+        longitudeDelta: 0.5,
+      }, 2000);
     } else {
       alert(alerts.location);
     }
@@ -80,6 +82,7 @@ function MapScreen({ navigation }: MapScreenProps) {
     <View style={styles.container}>
       {/* Map background */}
       <MapView
+        provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
         ref={mapRef}
         region={region}
         style={styles.map}
