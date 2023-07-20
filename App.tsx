@@ -4,12 +4,15 @@ import { LocationProvider } from "./src/provider/LocationProvider";
 import MainTabs from "./src/navigation/MainTabs";
 import { NavigationContainer } from "@react-navigation/native";
 import "./i18n.config";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function App() {
   return (
     <LocationProvider>
       <NavigationContainer>
-        <MainTabs />
+        <SafeAreaProvider>
+          <MainTabs />
+        </SafeAreaProvider>
       </NavigationContainer>
     </LocationProvider>
   );
