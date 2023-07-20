@@ -4,7 +4,7 @@
 
 Introducing **Polecat** - your ultimate pocket-sized wildlife explorer! Discover and learn about the diverse animal kingdom, right at your fingertips. With Polecat, you can uncover the wonderful world of wildlife in your local area or anywhere across the globe. Immerse yourself in fascinating animal facts, save your favorite creatures, and broaden your knowledge about the incredible species that share our planet. 
 
-![combined](https://github.com/polecat-app/polecat-light/assets/93203883/985131e9-86ec-443f-8668-07ee26c15bd3)
+![combined](https://github.com/polecat-app/polecat-light/assets/93203883/b477ed96-db67-428e-aca8-079a940d59e9)
 
 **Key Features:**
 
