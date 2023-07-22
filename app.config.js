@@ -29,7 +29,6 @@ export default ({ config }) => ({
         backgroundColor: "#20b2aa"
       },
       package: "com.wilddevs.polecat.free.test",
-      versionCode: 2,
       config: {
         googleMaps: {
           apiKey: process.env.GOOGLE_MAPS_API_KEY,

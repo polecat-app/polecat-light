@@ -1,10 +1,13 @@
 {
   "expo": {
     "ios": {
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
-      "versionCode": 3
+      "versionCode": 3,
+      "androidStatusBar": {
+        "backgroundColor": "#008080"
+      }
     }
   }
 }
