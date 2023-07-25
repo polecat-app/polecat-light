@@ -7,7 +7,7 @@ import { Colors } from "../styles/Colors";
 import { Offsets } from "../styles/Offsets";
 import { getThumbnailSignedURL } from "../api/Images";
 import { memo, useEffect, useState } from "react";
-import {Image} from "react-native-expo-image-cache";
+import { Image } from "react-native-expo-image-cache";
 
 const AnimalCard = memo(function AnimalCard(props: animalProps) {
   const navigation = useNavigation();
@@ -34,10 +34,7 @@ const AnimalCard = memo(function AnimalCard(props: animalProps) {
       }}
     >
       <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          uri={thumbnailURL}
-        />
+        <Image style={styles.image} uri={thumbnailURL} />
       </View>
       <View style={styles.textContainer}>
         <Text style={textStyles.basicBold} numberOfLines={1}>
@@ -112,8 +109,7 @@ function AnimalCardSkeleton() {
 
 const styles = StyleSheet.create({
   imageContainer: {
-    flex: 1,
-    alignItems: "flex-end",
+    alignItems: "flex-start",
   },
   image: {
     resizeMode: "cover",

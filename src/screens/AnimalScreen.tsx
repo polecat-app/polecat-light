@@ -265,6 +265,7 @@ function AnimalScreen({ navigation, route }: AnimalScreenProps) {
             <ReactImage
               style={styles.rangeImage}
               source={require("../../assets/regions/world.jpg")}
+              resizeMode={"center"}
             />
           )}
 
@@ -295,8 +296,7 @@ const styles = StyleSheet.create({
   },
   top: {
     width: "100%",
-    aspectRatio: 1,
-    maxHeight: 500,
+    maxHeight: Dimensions.get("window").width,
   },
   onImage: {
     height: "100%",
@@ -317,8 +317,8 @@ const styles = StyleSheet.create({
   },
   rangeImage: {
     width: "100%",
-    height: 200,
     justifyContent: "center",
+    aspectRatio: 2.5,
     backgroundColor: Colors.Primary,
   },
   description: {
